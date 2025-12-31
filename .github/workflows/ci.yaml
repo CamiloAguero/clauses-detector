@@ -15,7 +15,7 @@ jobs:
     steps:
       # Bajar códio del repositorio
       - name: Checkout código
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       # Instalar uv (Gestor de paquetes)
       - name: Instalar uv
