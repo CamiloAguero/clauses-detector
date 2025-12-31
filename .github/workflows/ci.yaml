@@ -29,6 +29,10 @@ jobs:
       - name: Instalar dependencias
         run: uv sync --all-extras --dev
 
+      # Formatear el código
+      - name: Revisar calidad de código (Ruff)
+        run: uv run ruff check .
+
       # Corer los test
       - name: Ejecutar Test con Pytest
         run: uv run pytest
