@@ -23,12 +23,12 @@ jobs:
 
       # Configurar py 3.12
       - name: Configurar Python
-        uses: uv python install 3.12
+        run: uv python install 3.12
 
       # Instalar librerias de pyproject.toml
       - name: Instalar dependencias
-        uses: uv sync --all-extras --dev
+        run: uv sync --all-extras --dev
 
       # Corer los test
       - name: Ejecutar Test con Pytest
-        uses: uv run pytest
+        run: uv run pytest
