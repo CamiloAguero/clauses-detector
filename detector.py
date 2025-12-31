@@ -6,17 +6,23 @@ from pydantic import Field, ValidationError, BaseModel
 
 # Configuración de Seguridad
 load_dotenv()
-api_key = os.getenv('GOOGLE_API_KEY')
+api_key = os.getenv("GOOGLE_API_KEY")
 
 # Validación si hay api key
 if api_key:
     genai.configure(api_key=api_key)
 
+
 # Modelo de datos
 class Analisisclausula(BaseModel):
-    es_abusiva: bool = Field(..., description="True si la claúsula es injusta o ilegal, False si es normal")
+    es_abusiva: bool = Field(
+        ..., description="True si la claúsula es injusta o ilegal, False si es normal"
+    )
     nivel_riesgo: str = Field(..., description="Nivel de severidad: Bajo, Medio, Alto")
-    explicacion: str = Field(..., description="Breve explicación jurídica de por qué es o no abusiva")
+    explicacion: str = Field(
+        ..., description="Breve explicación jurídica de por qué es o no abusiva"
+    )
+
 
 # Función principal
 def analizar_texto_legal(texto_clausula: str) -> dict:
@@ -27,7 +33,7 @@ def analizar_texto_legal(texto_clausula: str) -> dict:
     # Validación de api key
     if not api_key:
         return {"error": "Falta la API Key en el archivo .env"}
-    
+
     # El Prompt del sistema
     system_prompt = """
     Eres un abogado auditor experto en derechos del consumidor y laboral.
@@ -44,7 +50,7 @@ def analizar_texto_legal(texto_clausula: str) -> dict:
         model = genai.GenerativeModel(
             "gemini-flash-latest",
             system_instruction=system_prompt,
-            generation_config={'response_mime_type': 'application/json'}
+            generation_config={"response_mime_type": "application/json"},
         )
 
         # Envío de la clausula
@@ -58,10 +64,11 @@ def analizar_texto_legal(texto_clausula: str) -> dict:
 
         # Retornar diccionario limpio
         return analisis.model_dump()
-    
+
     except Exception as e:
         return {"error": f"Error procesando la cláusula: {str(e)}"}
-    
+
+
 if __name__ == "__main__":
     # Clausula abusiva
     clausula = "El empleado deberá pagar una multa de 100 millones de pesos si renuncia antes de 50 años."

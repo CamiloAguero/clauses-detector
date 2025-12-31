@@ -16,3 +16,8 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::FutureWarning"
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.10",
+]
