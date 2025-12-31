@@ -2,7 +2,7 @@ import os
 import json
 import google.generativeai as genai
 from dotenv import load_dotenv
-from pydantic import Field, ValidationError, BaseModel
+from pydantic import Field, BaseModel
 
 # Configuración de Seguridad
 load_dotenv()
